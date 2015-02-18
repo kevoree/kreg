@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+.idea/
+*.iml
+node_modules
+=======
 # Logs
 logs
 *.log
@@ -26,3 +31,4 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+>>>>>>> 92a46159767666940d4490e7a0bdcd0c74164d10

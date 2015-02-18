@@ -1,0 +1,40 @@
+{
+  "name": "kreg",
+  "description": "Kevoree REGistry command-line client (kreg)",
+  "version": "1.0.0",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {},
+  "bin": {
+    "kreg": "kreg.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevoree/kevoree-registry-cli"
+  },
+  "keywords": [
+    "kevoree",
+    "registry",
+    "cli",
+    "client"
+  ],
+  "author": "Maxime Tricoire <max.tricoire@gmail.com>",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/kevoree/kevoree-registry-cli/issues"
+  },
+  "homepage": "https://github.com/kevoree/kevoree-registry-cli",
+  "devDependencies": {},
+  "dependencies": {
+    "commander": "^2.6.0",
+    "inquirer": "^0.8.0",
+    "kevoree-registry-api": "^1.0.0",
+    "nconf": "^0.7.1",
+    "q": "^1.1.2",
+    "winston": "^0.9.0"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  }
+}
