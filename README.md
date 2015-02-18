@@ -4,7 +4,7 @@
 
 #### Installation
 ```sh
-npm i -g kevoree-registry-cli
+npm i -g kreg
 ```
 
 #### Usage
