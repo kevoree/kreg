@@ -1,5 +1,5 @@
 // Created by leiko on 13/02/15 11:26
-var winston = require('winston');
+import * as winston from "winston";
 
 winston.loggers.add('console', {
     console: {
@@ -9,4 +9,4 @@ winston.loggers.add('console', {
     }
 });
 
-module.exports = winston.loggers.get('console');
+export = winston.loggers.get('console');

@@ -1,14 +1,15 @@
 #!/usr/bin/env node
-var commander = require('commander'),
-    inquirer  = require('inquirer'),
-    Registry  = require('kevoree-registry-api'),
-    fs        = require('fs'),
-    path      = require('path'),
-    nconf     = require('nconf');
 
-var pkg        = require('./package.json'),
-    logger     = require('./lib/logger'),
-    verifyAuth = require('./lib/verifyAuth');
+import * as commander from "commander";
+import * as inquirer from "inquirer";
+import * as fs from "fs";
+import * as path from "path";
+import * as logger from "./lib/logger";
+import * as verifyAuth from "./lib/verifyAuth";
+import * as nconf from "nconf";
+import * as pkg from "../../../package.json";
+
+var Registry  = require('kevoree-registry-api');
 
 var HOME_DIR = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
 var KREGRC_PATH = path.resolve(HOME_DIR, '.kregrc');

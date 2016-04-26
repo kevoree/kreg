@@ -1,18 +1,18 @@
 // Created by leiko on 18/02/15 10:39
-var Q = require('q');
+import * as Q from "q";
 
 /**
  * Verify if expiresAt is not expired, tries to refresh token otherwise
  * @param {Object} auth
  * @returns {Q.Promise}
  */
-function verifyAuth(auth) {
+function verifyAuth(auth: { expiresAt: any, refresh_token: any }) {
     return Q.Promise(function (resolve, reject) {
         try {
             if (typeof auth.expiresAt === 'number') {
                 var expireDate = new Date(auth.expiresAt * 1000);
                 var currentDate = new Date();
-                if (currentDate.getTime() >= expireDate) {
+                if (currentDate.getTime() >= expireDate.getTime()) {
                     // token expired: ask for another one
                     Registry.refresh()
                         .then(resolve)
@@ -38,4 +38,4 @@ function verifyAuth(auth) {
     });
 }
 
-module.exports = verifyAuth;
+export = verifyAuth;

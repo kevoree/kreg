@@ -32,3 +32,6 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 >>>>>>> 92a46159767666940d4490e7a0bdcd0c74164d10
+
+/built
+/typings

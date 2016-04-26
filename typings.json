@@ -1,0 +1,11 @@
+{
+  "ambientDependencies": {
+    "commander": "registry:dt/commander#2.3.0+20160317120654",
+    "node": "registry:dt/node#4.0.0+20160423143914",
+    "q": "registry:dt/q#0.0.0+20160417152954",
+    "winston": "registry:dt/winston#0.0.0+20160417152829"
+  },
+  "dependencies": {
+    "inquirer": "registry:npm/inquirer#0.11.0+20160211003958"
+  }
+}

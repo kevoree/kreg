@@ -2,6 +2,8 @@
   "name": "kreg",
   "description": "Kevoree REGistry command-line client (kreg)",
   "version": "1.0.0",
+  "main": "built/main/kreg.js",
+  "typings": "build/main/kreg.d.ts",
   "directories": {
     "test": "test"
   },
@@ -28,7 +30,7 @@
   "devDependencies": {},
   "dependencies": {
     "commander": "^2.6.0",
-    "inquirer": "^0.8.0",
+    "inquirer": "^0.11.0",
     "kevoree-registry-api": "^1.0.0",
     "nconf": "^0.7.1",
     "q": "^1.1.2",
