@@ -4,12 +4,11 @@ import * as commander from "commander";
 import * as inquirer from "inquirer";
 import * as fs from "fs";
 import * as path from "path";
-import * as logger from "./lib/logger";
-import * as verifyAuth from "./lib/verifyAuth";
+import { logger } from "./lib/logger";
+import { verifyAuth } from "./lib/verifyAuth";
 import * as nconf from "nconf";
-import * as pkg from "../../../package.json";
-
-var Registry  = require('kevoree-registry-api');
+import * as pkg from "../package.json";
+import * as Registry  from 'kevoree-registry-api';
 
 var HOME_DIR = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
 var KREGRC_PATH = path.resolve(HOME_DIR, '.kregrc');
@@ -32,14 +31,14 @@ commander
             { type: 'password', name: 'password', message: 'Password' }
         ], function (user) {
             Registry.auth(user)
-                .then(function (credentials) {
+                .then(function (credentials: { token_type: any, scope: any, expiresAt: number, expires_in: string }) {
                     try {
                         delete credentials.token_type;
                         delete credentials.scope;
                         credentials.expiresAt = Math.round(new Date().getTime() / 1000) + parseInt(credentials.expires_in);
                         delete credentials.expires_in;
                         nconf.set('auth', credentials);
-                        nconf.save(function (err) {
+                        nconf.save(function (err: any) {
                             if (err) {
                                 throw err;
                             } else {
@@ -50,7 +49,7 @@ commander
                         throw new Error('Bad credentials response');
                     }
                 })
-                .catch(function (err) {
+                .catch(function (err: {message: string}) {
                     logger.error('Unable to proceed authentication with %s:%s (reason: %s)',
                         Registry.config.host, Registry.config.port, err.message);
                 })
@@ -66,7 +65,7 @@ commander
             .then(function () {
                 return Registry.whoami(nconf.get('auth:access_token'));
             })
-            .then(function (username) {
+            .then(function (username: string) {
                 logger.info('Authenticated as "%s"', username);
             })
             .catch(function () {
@@ -133,7 +132,7 @@ commander
                     default: false,
                     message: 'Are you sure you want to delete ' + namespace + '.' + name + (version ? '/' + version : '')
                 }
-            ], function (answer) {
+            ], function (answer: any) {
                 if (answer.doDelete) {
                     doDelete();
                 }
@@ -147,7 +146,7 @@ commander
     .description('Prints information about Namespaces and TypeDefinitions')
     .action(function (namespace, name, version, options) {
         Registry.getTdefs(namespace, name, version)
-            .then(function (tdefs) {
+            .then(function (tdefs: Array<any>) {
                 if (tdefs.length === 0) {
                     logger.info('No TypeDefinition found that matches %s', namespace + (name?'.'+name:'') + (version?'/'+version:''));
                 } else {
@@ -164,7 +163,7 @@ commander
                     }
                 }
             })
-            .catch(function (err) {
+            .catch(function (err: {message: string}) {
                 logger.error('Something went wrong (reason: %s)', err.message);
             })
             .done();
@@ -179,34 +178,43 @@ nconf.load(function () {
     }
 });
 
-function updateConfig(key) {
-    return function (value) {
+function updateConfig(key: string) {
+    return function (value: any) {
         Registry.config[key] = value;
     };
 }
 
-function updateLogLevel(level) {
+enum Levels {
+    info,
+    debug,
+    warn,
+    error,
+    silly
+}
+
+function updateLogLevel(level: Levels) {
+    const transport: any = logger.transports;
     switch (level) {
         default:
             logger.warn('Unknown log level "%s", defaulting to "info"', level);
-        case 'info':
-            logger.transports.console.level = 'info';
+        case Levels.info:
+            transport.console.level = 'info';
             break;
 
-        case 'debug':
-            logger.transports.console.level = 'debug';
+        case Levels.debug:
+            transport.console.level = 'debug';
             break;
 
-        case 'warn':
-            logger.transports.console.level = 'warn';
+        case Levels.warn:
+            transport.console.level = 'warn';
             break;
 
-        case 'error':
-            logger.transports.console.level = 'error';
+        case Levels.error:
+            transport.console.level = 'error';
             break;
 
-        case 'silly':
-            logger.transports.console.level = 'silly';
+        case Levels.silly:
+            transport.console.level = 'silly';
             break;
     }
 }

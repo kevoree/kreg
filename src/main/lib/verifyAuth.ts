@@ -1,13 +1,14 @@
 // Created by leiko on 18/02/15 10:39
 import * as Q from "q";
+import * as Registry  from 'kevoree-registry-api';
 
 /**
  * Verify if expiresAt is not expired, tries to refresh token otherwise
  * @param {Object} auth
  * @returns {Q.Promise}
  */
-function verifyAuth(auth: { expiresAt: any, refresh_token: any }) {
-    return Q.Promise(function (resolve, reject) {
+export function verifyAuth(auth: { expiresAt: any, refresh_token: any }): Q.Promise<any> {
+    return Q.Promise(function (resolve: () => any, reject: any) {
         try {
             if (typeof auth.expiresAt === 'number') {
                 var expireDate = new Date(auth.expiresAt * 1000);
@@ -37,5 +38,3 @@ function verifyAuth(auth: { expiresAt: any, refresh_token: any }) {
         }
     });
 }
-
-export = verifyAuth;

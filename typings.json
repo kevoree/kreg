@@ -1,6 +1,7 @@
 {
   "ambientDependencies": {
     "commander": "registry:dt/commander#2.3.0+20160317120654",
+    "nconf": "registry:dt/nconf#0.0.0+20160316155526",
     "node": "registry:dt/node#4.0.0+20160423143914",
     "q": "registry:dt/q#0.0.0+20160417152954",
     "winston": "registry:dt/winston#0.0.0+20160417152829"

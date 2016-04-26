@@ -9,4 +9,5 @@ winston.loggers.add('console', {
     }
 });
 
-export = winston.loggers.get('console');
+export const logger = winston.loggers.get('console');
+

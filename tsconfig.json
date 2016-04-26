@@ -31,6 +31,7 @@
   },
   "files": [
     "src/main/kreg.ts",
-    "typings/main.d.ts"
+    "typings/browser.d.ts",
+    "missing_tsd/kevoree-registry-api.d.ts"
   ]
 }
