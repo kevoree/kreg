@@ -4,7 +4,7 @@ import * as commander from "commander";
 import * as inquirer from "inquirer";
 import * as fs from "fs";
 import * as path from "path";
-import { logger } from "./lib/logger";
+import { logger, updateLogLevel } from "./lib/logger";
 import { verifyAuth } from "./lib/verifyAuth";
 import * as nconf from "nconf";
 import * as pkg from "../package.json";
@@ -33,10 +33,10 @@ commander
             Registry.auth(user)
                 .then(function (credentials: { token_type: any, scope: any, expiresAt: number, expires_in: string }) {
                     try {
-                        delete credentials.token_type;
-                        delete credentials.scope;
-                        credentials.expiresAt = Math.round(new Date().getTime() / 1000) + parseInt(credentials.expires_in);
-                        delete credentials.expires_in;
+                        //delete credentials.token_type;
+                        //delete credentials.scope;
+                        //credentials.expiresAt = Math.round(new Date().getTime() / 1000) + parseInt(credentials.expires_in);
+                        //delete credentials.expires_in;
                         nconf.set('auth', credentials);
                         nconf.save(function (err: any) {
                             if (err) {
@@ -63,13 +63,17 @@ commander
     .action(function () {
         verifyAuth(nconf.get('auth'))
             .then(function () {
-                return Registry.whoami(nconf.get('auth:access_token'));
+                const id_token:string = nconf.get('auth:id_token');
+                logger.debug("id_token = " + id_token);
+                return Registry.whoami(id_token);
             })
             .then(function (username: string) {
                 logger.info('Authenticated as "%s"', username);
             })
-            .catch(function () {
-                logger.error('Unable to authenticate you. You should run "kreg auth"');
+            .catch(function (err) {
+                if(err) {
+                    logger.error("Error : " + err);
+                }
             })
             .done();
     });
@@ -182,39 +186,4 @@ function updateConfig(key: string) {
     return function (value: any) {
         Registry.config[key] = value;
     };
-}
-
-enum Levels {
-    info,
-    debug,
-    warn,
-    error,
-    silly
-}
-
-function updateLogLevel(level: Levels) {
-    const transport: any = logger.transports;
-    switch (level) {
-        default:
-            logger.warn('Unknown log level "%s", defaulting to "info"', level);
-        case Levels.info:
-            transport.console.level = 'info';
-            break;
-
-        case Levels.debug:
-            transport.console.level = 'debug';
-            break;
-
-        case Levels.warn:
-            transport.console.level = 'warn';
-            break;
-
-        case Levels.error:
-            transport.console.level = 'error';
-            break;
-
-        case Levels.silly:
-            transport.console.level = 'silly';
-            break;
-    }
 }
