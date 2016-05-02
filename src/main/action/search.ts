@@ -2,7 +2,14 @@ import * as Registry  from 'kevoree-registry-api';
 import { logger } from "../lib/logger";
 
 export const searchAction = function (namespace: string, name: string, version: string, options: {model: string}) {
-    Registry.getTdefs(namespace, name, version)
+    logger.debug(namespace);
+
+
+    const pNamespace = (namespace === "*") ? "**" : namespace;
+    const pName = (name === "*") ? "**" : name;
+
+
+    Registry.getTdefs(pNamespace, pName, parseInt(version, 10) )
         .then(function (tdefs: Array<any>) {
             if (tdefs.length === 0) {
                 logger.info('No TypeDefinition found that matches %s', namespace + (name?'.'+name:'') + (version?'/'+version:''));

@@ -37,10 +37,18 @@ commander
     .action(publishAction);
 
 commander
-    .command('search <namespace> [name [version]]')
+    .command('search-typedef [namespace] [typedef] [version]')
     .option('-m, --model', 'Show serialized model')
     .description('Prints information about Namespaces and TypeDefinitions')
     .action(searchAction);
+
+commander
+    .command('search-deploy-unit')
+    .option('-m, --model', 'Show serialized model')
+    .description('Prints information about Namespaces and TypeDefinitions')
+    .action(function() {
+        logger.info("search deploy-unit")
+    });
 
 nconf.load(function () {
     commander.parse(process.argv);
