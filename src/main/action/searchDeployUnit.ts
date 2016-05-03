@@ -1,18 +1,18 @@
 import * as Registry  from 'kevoree-registry-api';
 import { logger } from "../lib/logger";
 
-export const searchTypedefAction = function (namespace: string, name: string, version: string, options: {model: string}) {
+export const searchDeployUnitAction = function (namespace: string, name: string, version: string, platform: string, options: {model: string, latest: boolean}) {
     logger.debug(namespace);
-
 
     const pNamespace = (namespace === "*") ? "**" : namespace;
     const pName = (name === "*") ? "**" : name;
+    const pPlatform = (platform === '*') ? "**" : platform;
+    const pLatest = (options || {latest: false}).latest;
 
-
-    Registry.getTdefs(pNamespace, pName, parseInt(version, 10) )
+    Registry.getDeployUnits(pNamespace, pName, parseInt(version, 10), pPlatform, pLatest)
         .then(function (tdefs: Array<any>) {
             if (tdefs.length === 0) {
-                logger.info('No TypeDefinition found that matches %s', namespace + (name?'.'+name:'') + (version?'/'+version:''));
+                logger.info('No Deploy Unit found that matches %s', namespace + (name?'.'+name:'') + (version?'/'+version:'') + (platform?(" platform = " + platform):''));
             } else {
                 if (options.model) {
                     logger.info('Results:', tdefs.map(function (tdef) {

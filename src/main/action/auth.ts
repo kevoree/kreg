@@ -11,10 +11,6 @@ export const authAction = function () {
         Registry.auth(user)
             .then(function (credentials:{ token_type:any, scope:any, expiresAt:number, expires_in:string }) {
                 try {
-                    //delete credentials.token_type;
-                    //delete credentials.scope;
-                    //credentials.expiresAt = Math.round(new Date().getTime() / 1000) + parseInt(credentials.expires_in);
-                    //delete credentials.expires_in;
                     nconf.set('auth', credentials);
                     nconf.save(function (err:any) {
                         if (err) {

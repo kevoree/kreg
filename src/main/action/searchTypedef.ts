@@ -7,8 +7,7 @@ export const searchTypedefAction = function (namespace: string, name: string, ve
 
     const pNamespace = (namespace === "*") ? "**" : namespace;
     const pName = (name === "*") ? "**" : name;
-
-
+    
     Registry.getTdefs(pNamespace, pName, parseInt(version, 10) )
         .then(function (tdefs: Array<any>) {
             if (tdefs.length === 0) {

@@ -6,6 +6,7 @@ declare module "kevoree-registry-api" {
         export function createTdef(token: string, namespace: string, name: string, version: string , data: string): void;
         export function deleteTdef(token: string, namespace: string, name: string, version: string): void;
         export function getTdefs(namespace: string, name: string, version: number):any;
+        export function getDeployUnits(namespace: string, name: string, version: number, platform: string, latest: boolean):any;
         export function isConnected(token:string): Q.Promise<boolean>;
     }
     export = e;
