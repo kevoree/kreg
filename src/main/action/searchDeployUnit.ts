@@ -1,7 +1,7 @@
 import * as Registry  from 'kevoree-registry-api';
 import { logger } from "../lib/logger";
 
-export const searchAction = function (namespace: string, name: string, version: string, options: {model: string}) {
+export const searchTypedefAction = function (namespace: string, name: string, version: string, options: {model: string}) {
     logger.debug(namespace);
 
 

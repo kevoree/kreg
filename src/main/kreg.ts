@@ -6,7 +6,7 @@ import { logger, updateLogLevel } from "./lib/logger";
 import * as nconf from "nconf";
 import * as pkg from "../package.json";
 import * as Registry  from 'kevoree-registry-api';
-import {authAction, publishAction, searchAction, whoamiAction} from "./action";
+import {authAction, publishAction, searchTypedefAction, whoamiAction} from "./action";
 
 var HOME_DIR = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
 var KREGRC_PATH = path.resolve(HOME_DIR, '.kregrc');
@@ -40,7 +40,7 @@ commander
     .command('search-typedef [namespace] [typedef] [version]')
     .option('-m, --model', 'Show serialized model')
     .description('Prints information about Namespaces and TypeDefinitions')
-    .action(searchAction);
+    .action(searchTypedefAction);
 
 commander
     .command('search-deploy-unit')
