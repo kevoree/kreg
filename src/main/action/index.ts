@@ -3,3 +3,4 @@ export {publishAction} from "./publish";
 export {searchTypedefAction} from "./searchTypedef";
 export {searchDeployUnitAction} from "./searchDeployUnit";
 export {whoamiAction} from "./whoami"
+export {createNamespace} from "./createNamespace";
