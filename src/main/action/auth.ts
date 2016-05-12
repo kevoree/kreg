@@ -8,8 +8,11 @@ export const authAction = function () {
         {type: 'input', name: 'username', message: 'Login'},
         {type: 'password', name: 'password', message: 'Password'}
     ], function (user) {
-        Registry.auth(user)
-            .then(function (credentials:{ token_type:any, scope:any, expiresAt:number, expires_in:string }) {
+        Registry.auth({
+            username: <string>user["username"],
+            password: <string>user["password"]
+        })
+            .then(function (credentials) {
                 try {
                     nconf.set('auth', credentials);
                     nconf.save(function (err:any) {

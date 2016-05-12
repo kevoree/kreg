@@ -21,8 +21,8 @@
     "typings/browser.d.ts"
   ],
   "filesGlob": [
-    "src/**/*.ts"
-  //, "typings/main.d.ts"
+    "src/**/*.ts",
+    "typings/main.d.ts"
   ],
   "compileOnSave": true,
   "buildOnSave": true,
@@ -30,8 +30,15 @@
     "rewriteTsconfig": true
   },
   "files": [
+    "src/main/action/auth.ts",
+    "src/main/action/index.ts",
+    "src/main/action/publish.ts",
+    "src/main/action/searchDeployUnit.ts",
+    "src/main/action/searchTypedef.ts",
+    "src/main/action/whoami.ts",
     "src/main/kreg.ts",
-    "typings/browser.d.ts",
-    "missing_tsd/kevoree-registry-api.d.ts"
+    "src/main/lib/logger.ts",
+    "src/main/lib/verifyAuth.ts",
+    "typings/main.d.ts"
   ]
 }
