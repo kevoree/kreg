@@ -38,6 +38,7 @@ commander
 
 commander
     .command('search-typedef <namespace> [typedef] [version]')
+    .option("--latest", "Shows only latest Deploy Units of every Type Definitions.")
     .option('-m, --model', 'Show serialized model')
     .description('Prints information about TypeDefinitions')
     .action(searchTypedefAction);

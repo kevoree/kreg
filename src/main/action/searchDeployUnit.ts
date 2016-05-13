@@ -15,12 +15,12 @@ export const searchDeployUnitAction = function (namespace: string, name: string,
                 logger.info('No Deploy Unit found that matches %s', namespace + (name?'.'+name:'') + (version?'/'+version:'') + (platform?(" platform = " + platform):''));
             } else {
                 if (options.model) {
-                    logger.info('Results:', tdefs.map(function (tdef) {
+                    logger.info('Results (', tdefs.length ,') :', tdefs.map(function (tdef) {
                         tdef.serializedModel = JSON.parse(tdef.serializedModel);
                         return tdef;
                     }));
                 } else {
-                    logger.info('Results:', tdefs.map(function (tdef) {
+                    logger.info('Results (', tdefs.length ,') :', tdefs.map(function (tdef) {
                         delete tdef.serializedModel;
                         return tdef;
                     }));
@@ -32,4 +32,4 @@ export const searchDeployUnitAction = function (namespace: string, name: string,
         })
         .done();
 
-};
+}
