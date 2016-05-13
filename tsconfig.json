@@ -32,7 +32,6 @@
   "files": [
     "src/main/action/auth.ts",
     "src/main/action/index.ts",
-    "src/main/action/publish.ts",
     "src/main/action/searchDeployUnit.ts",
     "src/main/action/searchTypedef.ts",
     "src/main/action/whoami.ts",
