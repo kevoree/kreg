@@ -12,8 +12,13 @@ export function createNamespace(namespace: string) {
         .then(function (result: any) {
             logger.info("namespace created");
         })
-        .catch(function (err: {message: string}) {
+        .catch(function (err: {message: string, fieldErrors: Array<{objectName: string, message: string}>}) {
             logger.error('Something went wrong (reason: %s)', err.message);
+            (err.fieldErrors || []).map((item) => {
+                if(item.objectName && item.message) {
+                    logger.error(" - %s : %s", item.objectName, item.message);
+                }
+            });
         })
         .done();
 }
